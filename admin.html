@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard — Clinton Mogere</title>
+  <title>Admin Dashboard - Joshclin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    /* ── DESIGN SYSTEM ──────────────────────────────────────── */
     :root {
       --bg:     #07070f;
       --bg-2:   #0d0d1a;
@@ -19,7 +18,6 @@
       --card-h: rgba(255,255,255,0.07);
       --border: rgba(255,255,255,0.08);
       --b2:     rgba(255,255,255,0.13);
-
       --green:  #25D366;
       --green-d:rgba(37,211,102,0.18);
       --green-g:rgba(37,211,102,0.1);
@@ -27,11 +25,9 @@
       --red:    #EF4444;
       --red-d:  rgba(239,68,68,0.15);
       --amber:  #F59E0B;
-
       --txt:    #F0F2FF;
       --txt-2:  #8892A4;
       --txt-3:  #404858;
-
       --r:      14px;
       --r-sm:   10px;
       --ease:   cubic-bezier(.4,0,.2,1);
@@ -47,7 +43,7 @@
       overflow-x: hidden;
     }
 
-    /* ── AUTH SCREEN ────────────────────────────────────────── */
+    /* AUTH */
     #authScreen {
       display: flex;
       align-items: center;
@@ -83,9 +79,24 @@
     }
     .auth-logo span { color: var(--green); }
     .auth-sub { font-size: 13px; color: var(--txt-2); margin-bottom: 30px; }
-    .auth-card label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--txt-3); margin-bottom: 8px; }
+    .auth-card label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--txt-3);
+      margin-bottom: 8px;
+    }
     .auth-inp-wrap { position: relative; margin-bottom: 20px; }
-    .auth-inp-wrap i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--txt-3); font-size: 14px; }
+    .auth-inp-wrap i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--txt-3);
+      font-size: 14px;
+    }
     .auth-input {
       width: 100%;
       padding: 13px 14px 13px 40px;
@@ -126,10 +137,9 @@
     .btn-primary:active { transform: translateY(0); }
     .btn-primary:disabled { opacity: .5; cursor: not-allowed; transform: none; }
 
-    /* ── DASHBOARD ──────────────────────────────────────────── */
+    /* DASHBOARD */
     #dashboard { display: none; min-height: 100dvh; }
 
-    /* Top bar */
     .topbar {
       display: flex;
       align-items: center;
@@ -142,11 +152,7 @@
       top: 0;
       z-index: 100;
     }
-    .topbar-brand {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-    }
+    .topbar-brand { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; }
     .topbar-brand span { color: var(--green); }
     .topbar-right { display: flex; align-items: center; gap: 10px; }
     .icon-btn {
@@ -164,7 +170,6 @@
     .icon-btn:hover { border-color: var(--b2); color: var(--txt); background: var(--card-h); }
     .icon-btn.danger:hover { border-color: var(--red); color: var(--red); }
 
-    /* Tab nav */
     .tab-nav {
       display: flex;
       border-bottom: 1px solid var(--border);
@@ -194,11 +199,9 @@
     .tab-btn.active { color: var(--green); border-bottom-color: var(--green); }
     .tab-btn i { font-size: 13px; }
 
-    /* Content area */
     .tab-content { display: none; padding: 24px 20px 60px; max-width: 680px; margin: 0 auto; }
     .tab-content.active { display: block; animation: rise .3s var(--ease); }
 
-    /* ── SECTION LABEL ──────────────────────────────────────── */
     .sec-title {
       font-family: 'Space Grotesk', sans-serif;
       font-size: 17px;
@@ -209,7 +212,7 @@
       justify-content: space-between;
     }
 
-    /* ── FORMS ──────────────────────────────────────────────── */
+    /* FORMS */
     .form-card {
       background: var(--panel);
       border: 1px solid var(--border);
@@ -280,7 +283,7 @@
     }
     .btn-save:hover { opacity: .88; transform: translateY(-1px); }
 
-    /* ── CHANNEL LIST ───────────────────────────────────────── */
+    /* CHANNEL LIST */
     #channelItems { display: flex; flex-direction: column; gap: 9px; }
 
     .ch-item {
@@ -291,7 +294,7 @@
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: var(--r-sm);
-      transition: border-color .22s, box-shadow .22s;
+      transition: border-color .22s;
     }
     .ch-item:hover { border-color: var(--b2); }
 
@@ -327,12 +330,7 @@
 
     .ch-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 
-    /* Toggle switch */
-    .toggle {
-      position: relative;
-      width: 38px; height: 22px;
-      flex-shrink: 0;
-    }
+    .toggle { position: relative; width: 38px; height: 22px; flex-shrink: 0; }
     .toggle input { opacity: 0; width: 0; height: 0; }
     .toggle-slider {
       position: absolute;
@@ -371,12 +369,38 @@
     .ch-del-btn { color: var(--txt-3); }
     .ch-del-btn:hover { border-color: var(--red); color: var(--red); background: var(--red-d); }
 
-    /* ── MODAL ──────────────────────────────────────────────── */
+    /* STATS */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+    .stat-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 16px 14px;
+      text-align: center;
+    }
+    .stat-n {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--green), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-l { font-size: 11px; color: var(--txt-3); margin-top: 3px; }
+
+    /* MODAL */
     .modal-overlay {
       display: none;
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,.65);
+      -webkit-backdrop-filter: blur(6px);
       backdrop-filter: blur(6px);
       z-index: 200;
       align-items: center;
@@ -431,7 +455,7 @@
     }
     .btn-cancel:hover { border-color: var(--b2); color: var(--txt); }
 
-    /* ── TOAST ──────────────────────────────────────────────── */
+    /* TOAST */
     .toast {
       position: fixed;
       bottom: 28px;
@@ -460,32 +484,6 @@
     .toast.error { border-color: var(--red); }
     .toast.error i { color: var(--red); }
 
-    /* ── STATS ROW ──────────────────────────────────────────── */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 22px;
-    }
-    .stat-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: var(--r-sm);
-      padding: 16px 14px;
-      text-align: center;
-    }
-    .stat-n {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 26px;
-      font-weight: 800;
-      background: linear-gradient(135deg,var(--green),var(--purple));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .stat-l { font-size: 11px; color: var(--txt-3); margin-top: 3px; }
-
-    /* ── UTILITIES ──────────────────────────────────────────── */
     .empty {
       text-align: center;
       padding: 40px 20px;
@@ -494,7 +492,6 @@
     }
     .empty i { font-size: 32px; margin-bottom: 10px; display: block; opacity: .4; }
 
-    /* ── ANIMATIONS ─────────────────────────────────────────── */
     @keyframes rise { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
     @keyframes pop  { from { opacity:0; transform:scale(.94); } to { opacity:1; transform:scale(1); } }
 
@@ -505,12 +502,10 @@
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════
-     AUTH SCREEN
-════════════════════════════════════════════ -->
+<!-- AUTH SCREEN -->
 <div id="authScreen">
   <div class="auth-card">
-    <div class="auth-logo">Clinton <span>Admin</span></div>
+    <div class="auth-logo">Joshclin <span>Admin</span></div>
     <div class="auth-sub">Sign in to manage your link-in-bio page</div>
     <label for="authPass">Password</label>
     <div class="auth-inp-wrap">
@@ -518,42 +513,37 @@
       <input type="password" id="authPass" class="auth-input" placeholder="Enter password" autocomplete="current-password">
     </div>
     <div class="auth-err" id="authErr" aria-live="polite"></div>
-    <button class="btn-primary" id="authBtn" type="button">Sign In</button>
+    <button type="button" class="btn-primary" id="authBtn">Sign In</button>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     DASHBOARD
-════════════════════════════════════════════ -->
+<!-- DASHBOARD -->
 <div id="dashboard">
 
-  <!-- Top bar -->
   <div class="topbar">
-    <div class="topbar-brand">Clinton <span>Admin</span></div>
+    <div class="topbar-brand">Joshclin <span>Admin</span></div>
     <div class="topbar-right">
-      <a href="/" class="icon-btn" title="View public page" target="_blank" rel="noopener">
+      <a href="/index.html" class="icon-btn" title="View public page" target="_blank" rel="noopener">
         <i class="fas fa-external-link-alt"></i>
       </a>
-      <button class="icon-btn danger" id="logoutBtn" title="Logout">
+      <button type="button" class="icon-btn danger" id="logoutBtn" title="Logout">
         <i class="fas fa-sign-out-alt"></i>
       </button>
     </div>
   </div>
 
-  <!-- Tab navigation -->
   <div class="tab-nav">
-    <button class="tab-btn active" data-tab="channels"><i class="fab fa-whatsapp"></i> Channels</button>
-    <button class="tab-btn" data-tab="profile"><i class="fas fa-user"></i> Profile</button>
-    <button class="tab-btn" data-tab="settings"><i class="fas fa-cog"></i> Settings</button>
+    <button type="button" class="tab-btn active" data-tab="channels"><i class="fab fa-whatsapp"></i> Channels</button>
+    <button type="button" class="tab-btn" data-tab="profile"><i class="fas fa-user"></i> Profile</button>
+    <button type="button" class="tab-btn" data-tab="settings"><i class="fas fa-cog"></i> Settings</button>
   </div>
 
-  <!-- ── CHANNELS TAB ── -->
+  <!-- CHANNELS TAB -->
   <div class="tab-content active" id="tab-channels">
-
     <div class="stats">
       <div class="stat-card">
         <div class="stat-n" id="statTotal">0</div>
-        <div class="stat-l">Total Channels</div>
+        <div class="stat-l">Total</div>
       </div>
       <div class="stat-card">
         <div class="stat-n" id="statActive">0</div>
@@ -564,25 +554,21 @@
         <div class="stat-l">Hidden</div>
       </div>
     </div>
-
     <div class="sec-title">
       <span>Your Channels</span>
-      <button class="btn-add" id="addChannelBtn"><i class="fas fa-plus"></i> Add Channel</button>
+      <button type="button" class="btn-add" id="addChannelBtn"><i class="fas fa-plus"></i> Add Channel</button>
     </div>
-
-    <div id="channelItems">
-      <!-- rendered by JS -->
-    </div>
+    <div id="channelItems"></div>
   </div>
 
-  <!-- ── PROFILE TAB ── -->
+  <!-- PROFILE TAB -->
   <div class="tab-content" id="tab-profile">
     <div class="sec-title"><span>Profile Info</span></div>
     <div class="form-card">
       <div class="form-grid">
         <div class="field">
           <label>Display Name</label>
-          <input type="text" id="profName" placeholder="Clinton Mogere">
+          <input type="text" id="profName" placeholder="Joshclin">
         </div>
         <div class="field">
           <label>Handle / Username</label>
@@ -590,7 +576,7 @@
         </div>
         <div class="field">
           <label>Short Bio</label>
-          <textarea id="profBio" placeholder="Content Creator & Meme Lord 🔥"></textarea>
+          <textarea id="profBio" placeholder="Content Creator & Meme Lord"></textarea>
         </div>
         <div class="form-grid form-grid-2">
           <div class="field">
@@ -599,15 +585,15 @@
           </div>
           <div class="field">
             <label>Email Address</label>
-            <input type="email" id="profEmail" placeholder="you@example.com">
+            <input type="email" id="profEmail" placeholder="you@email.com">
           </div>
         </div>
-        <button class="btn-save" id="saveProfileBtn"><i class="fas fa-check"></i> Save Profile</button>
+        <button type="button" class="btn-save" id="saveProfileBtn"><i class="fas fa-check"></i> Save Profile</button>
       </div>
     </div>
   </div>
 
-  <!-- ── SETTINGS TAB ── -->
+  <!-- SETTINGS TAB -->
   <div class="tab-content" id="tab-settings">
     <div class="sec-title"><span>Settings</span></div>
     <div class="form-card">
@@ -620,33 +606,30 @@
           <label>Confirm New Password</label>
           <input type="password" id="confirmPass" placeholder="Repeat new password">
         </div>
-        <button class="btn-save" id="changePassBtn"><i class="fas fa-key"></i> Update Password</button>
+        <button type="button" class="btn-save" id="changePassBtn"><i class="fas fa-key"></i> Update Password</button>
       </div>
     </div>
-
-    <div class="form-card" style="margin-top:16px;">
+    <div class="form-card">
       <div class="sec-title" style="font-size:14px;margin-bottom:14px;"><span>Danger Zone</span></div>
       <p style="font-size:13px;color:var(--txt-2);margin-bottom:16px;">Reset all channels to the default list. This cannot be undone.</p>
-      <button class="btn-cancel" id="resetBtn" style="border-color:var(--red);color:var(--red);"><i class="fas fa-rotate-left"></i> Reset to Defaults</button>
+      <button type="button" class="btn-cancel" id="resetBtn" style="border-color:var(--red);color:var(--red);"><i class="fas fa-rotate-left"></i> Reset to Defaults</button>
     </div>
   </div>
 
-</div><!-- /dashboard -->
+</div>
 
-<!-- ══════════════════════════════════════════
-     MODAL — ADD / EDIT CHANNEL
-════════════════════════════════════════════ -->
+<!-- MODAL -->
 <div class="modal-overlay" id="channelModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal">
     <div class="modal-head">
       <span id="modalTitle">Add Channel</span>
-      <button class="modal-close" id="modalClose" aria-label="Close"><i class="fas fa-times"></i></button>
+      <button type="button" class="modal-close" id="modalClose" aria-label="Close"><i class="fas fa-times"></i></button>
     </div>
     <div class="modal-form">
       <input type="hidden" id="editId">
       <div class="field">
         <label>Channel Name *</label>
-        <input type="text" id="mName" placeholder="e.g. Campus Chronicles ❤️" maxlength="80">
+        <input type="text" id="mName" placeholder="e.g. Campus Chronicles" maxlength="80">
       </div>
       <div class="field">
         <label>Description / Subtitle</label>
@@ -657,351 +640,298 @@
         <input type="url" id="mUrl" placeholder="https://whatsapp.com/channel/...">
       </div>
       <div class="modal-actions">
-        <button class="btn-cancel" id="modalCancel">Cancel</button>
-        <button class="btn-save" id="modalSave" style="flex:1.5;justify-content:center;"><i class="fas fa-check"></i> Save Channel</button>
+        <button type="button" class="btn-cancel" id="modalCancel">Cancel</button>
+        <button type="button" class="btn-save" id="modalSave" style="flex:1.5;justify-content:center;"><i class="fas fa-check"></i> Save Channel</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Toast -->
 <div class="toast" id="toast" role="alert"><i class="fas fa-check-circle"></i><span id="toastMsg"></span></div>
 
 <script>
-/* ═══════════════════════════════════════════════════════════════
-   DATA
-═══════════════════════════════════════════════════════════════ */
-const DEFAULTS = [
-  {id:1,  name:"WhatsApp Stickers",        sub:"Stickers & GIFs",                url:"https://whatsapp.com/channel/0029VbD59BvADTOJ0Jdy2S21", on:true},
-  {id:2,  name:"Campus Chronicles ❤️ ✨",  sub:"Campus Life & Stories",           url:"https://whatsapp.com/channel/0029VbAoYs4H5JM6vUKB4m1c", on:true},
-  {id:3,  name:"TikTok Videos",            sub:"Viral TikTok Content",            url:"https://whatsapp.com/channel/0029Vb7VRaL4Y9lnxwMQwq2A", on:true},
-  {id:4,  name:"Toxic Memes ❤️😂",         sub:"Daily Meme Drops",                url:"https://whatsapp.com/channel/0029VbBJ9owCHDyk5Mod8S38", on:true},
-  {id:5,  name:"Daily Wallpapers ❤️",      sub:"HD Wallpapers Every Day",         url:"https://whatsapp.com/channel/0029Vb6GvIAK5cDN9KLgrT0x", on:true},
-  {id:6,  name:"Wallpapers 🎀",            sub:"Aesthetic Wallpaper Collection",  url:"https://whatsapp.com/channel/0029Vb7VaFC1Hsq2q15r7Y3v", on:true},
-  {id:7,  name:"Hot Memes ❤️😂",           sub:"Fresh Memes Every Day",           url:"https://whatsapp.com/channel/0029Vb83LTgLNSZx3jvhbB2x", on:true},
-  {id:8,  name:"Girly Polished ❤️❤️",     sub:"Feminine Aesthetic Content",      url:"https://whatsapp.com/channel/0029Vb809M9HgZWYaLaWsO0G", on:true},
-  {id:9,  name:"Stickers 💗",              sub:"Cute Sticker Collection",         url:"https://whatsapp.com/channel/0029Vb6roIlLo4hYQzUtMB3H", on:true},
-  {id:10, name:"Sex Education",            sub:"Health & Education 🔞",           url:"https://whatsapp.com/channel/0029VbBHNisCRs1q2GTVJs0H", on:true},
-  {id:11, name:"Nasty Narratives 🥵📖💦", sub:"Adult Content 18+",               url:"https://whatsapp.com/channel/0029Vb7OiIMCMY0HzuHL423P", on:true},
-];
+  const DEFAULTS = [
+    {id:1,  name:"WhatsApp Stickers",        sub:"Stickers & GIFs",               url:"https://whatsapp.com/channel/0029VbD59BvADTOJ0Jdy2S21", on:true},
+    {id:2,  name:"Campus Chronicles",        sub:"Campus Life & Stories",          url:"https://whatsapp.com/channel/0029VbAoYs4H5JM6vUKB4m1c", on:true},
+    {id:3,  name:"TikTok Videos",            sub:"Viral TikTok Content",           url:"https://whatsapp.com/channel/0029Vb7VRaL4Y9lnxwMQwq2A", on:true},
+    {id:4,  name:"Toxic Memes",              sub:"Daily Meme Drops",               url:"https://whatsapp.com/channel/0029VbBJ9owCHDyk5Mod8S38", on:true},
+    {id:5,  name:"Daily Wallpapers",         sub:"HD Wallpapers Every Day",        url:"https://whatsapp.com/channel/0029Vb6GvIAK5cDN9KLgrT0x", on:true},
+    {id:6,  name:"Wallpapers",               sub:"Aesthetic Wallpaper Collection", url:"https://whatsapp.com/channel/0029Vb7VaFC1Hsq2q15r7Y3v", on:true},
+    {id:7,  name:"Hot Memes",                sub:"Fresh Memes Every Day",          url:"https://whatsapp.com/channel/0029Vb83LTgLNSZx3jvhbB2x", on:true},
+    {id:8,  name:"Girly Polished",           sub:"Feminine Aesthetic Content",     url:"https://whatsapp.com/channel/0029Vb809M9HgZWYaLaWsO0G", on:true},
+    {id:9,  name:"Stickers",                 sub:"Cute Sticker Collection",        url:"https://whatsapp.com/channel/0029Vb6roIlLo4hYQzUtMB3H", on:true},
+    {id:10, name:"Sex Education",            sub:"Health & Education",             url:"https://whatsapp.com/channel/0029VbBHNisCRs1q2GTVJs0H", on:true},
+    {id:11, name:"Nasty Narratives",         sub:"Adult Content 18+",              url:"https://whatsapp.com/channel/0029Vb7OiIMCMY0HzuHL423P", on:true},
+  ];
 
-const DEFAULT_PROFILE = {
-  name:'Clinton Mogere', handle:'@Clin_memes',
-  bio:'Content Creator & Meme Lord 🔥 | Campus Chronicles | Entertainment & More',
-  phone:'+254714590380', email:'clintmogere@gmail.com'
-};
+  const DEFAULT_PROFILE = {
+    name:'Joshclin', handle:'@Clin_memes',
+    bio:'Content Creator & Meme Lord | Campus Chronicles | Entertainment & More',
+    phone:'+254714590380', email:'clinjoey@gmail.com'
+  };
 
-/* ═══════════════════════════════════════════════════════════════
-   STORAGE HELPERS
-═══════════════════════════════════════════════════════════════ */
-const ls = {
-  get: k => { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } },
-  set: (k,v) => localStorage.setItem(k, JSON.stringify(v))
-};
+  const ls = {
+    get: k => { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } },
+    set: (k,v) => localStorage.setItem(k, JSON.stringify(v))
+  };
 
-function getChannels() {
-  const s = ls.get('cm_channels');
-  return Array.isArray(s) ? s : JSON.parse(JSON.stringify(DEFAULTS));
-}
-function saveChannels(c) { ls.set('cm_channels', c); }
-
-function getProfile() {
-  return Object.assign({}, DEFAULT_PROFILE, ls.get('cm_profile') || {});
-}
-function saveProfile(p) { ls.set('cm_profile', p); }
-
-/* Password: stored as base64 of raw string (simple, personal site) */
-const PASS_KEY = 'cm_pass';
-function getPassHash() { return localStorage.getItem(PASS_KEY) || btoa('clinton2024'); }
-function checkPass(p) { return btoa(p) === getPassHash(); }
-function setPass(p) { localStorage.setItem(PASS_KEY, btoa(p)); }
-
-/* Session */
-const SESSION_KEY = 'cm_session';
-function isLoggedIn() { return sessionStorage.getItem(SESSION_KEY) === '1'; }
-function login() { sessionStorage.setItem(SESSION_KEY, '1'); }
-function logout() { sessionStorage.removeItem(SESSION_KEY); location.reload(); }
-
-/* ═══════════════════════════════════════════════════════════════
-   AUTH
-═══════════════════════════════════════════════════════════════ */
-const authScreen = document.getElementById('authScreen');
-const dashboard  = document.getElementById('dashboard');
-
-if (isLoggedIn()) { show(); } else { authScreen.style.display = 'flex'; }
-
-document.getElementById('authBtn').onclick = doLogin;
-document.getElementById('authPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
-document.getElementById('logoutBtn').onclick = logout;
-
-function doLogin() {
-  const p = document.getElementById('authPass').value;
-  const err = document.getElementById('authErr');
-  if (!p) { showErr('Please enter a password.'); return; }
-  if (checkPass(p)) {
-    login(); show();
-  } else {
-    showErr('<i class="fas fa-exclamation-circle"></i> Incorrect password. Try again.');
-    document.getElementById('authPass').value = '';
-    document.getElementById('authPass').focus();
+  function getChannels() {
+    const s = ls.get('cm_channels');
+    return Array.isArray(s) ? s : JSON.parse(JSON.stringify(DEFAULTS));
   }
-}
-function showErr(msg) {
-  document.getElementById('authErr').innerHTML = msg;
-  document.getElementById('authPass').style.borderColor = 'var(--red)';
-  setTimeout(() => { document.getElementById('authPass').style.borderColor = ''; }, 2000);
-}
-function show() {
-  authScreen.style.display = 'none';
-  dashboard.style.display = 'block';
-  renderAll();
-}
+  function saveChannels(c) { ls.set('cm_channels', c); }
+  function getProfile() { return Object.assign({}, DEFAULT_PROFILE, ls.get('cm_profile') || {}); }
+  function saveProfile(p) { ls.set('cm_profile', p); }
 
-/* ═══════════════════════════════════════════════════════════════
-   TABS
-═══════════════════════════════════════════════════════════════ */
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    btn.classList.add('active');
-    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  const PASS_KEY = 'cm_pass';
+  function getPassHash() { return localStorage.getItem(PASS_KEY) || btoa('clinton2024'); }
+  function checkPass(p) { return btoa(p) === getPassHash(); }
+  function setPass(p) { localStorage.setItem(PASS_KEY, btoa(p)); }
+
+  function isLoggedIn() { return sessionStorage.getItem('cm_session') === '1'; }
+  function login() { sessionStorage.setItem('cm_session', '1'); }
+  function logout() { sessionStorage.removeItem('cm_session'); location.reload(); }
+
+  /* AUTH */
+  if (isLoggedIn()) { showDashboard(); }
+
+  document.getElementById('authBtn').onclick = doLogin;
+  document.getElementById('authPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+  document.getElementById('logoutBtn').onclick = logout;
+
+  function doLogin() {
+    const p = document.getElementById('authPass').value;
+    if (!p) { showErr('Please enter a password.'); return; }
+    if (checkPass(p)) { login(); showDashboard(); }
+    else {
+      showErr('Incorrect password. Try again.');
+      document.getElementById('authPass').value = '';
+      document.getElementById('authPass').focus();
+    }
+  }
+  function showErr(msg) {
+    document.getElementById('authErr').textContent = msg;
+    document.getElementById('authPass').style.borderColor = 'var(--red)';
+    setTimeout(() => { document.getElementById('authPass').style.borderColor = ''; }, 2000);
+  }
+  function showDashboard() {
+    document.getElementById('authScreen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    renderAll();
+  }
+
+  /* TABS */
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
   });
-});
 
-/* ═══════════════════════════════════════════════════════════════
-   RENDER
-═══════════════════════════════════════════════════════════════ */
-function renderAll() {
-  renderChannels();
-  renderProfile();
-}
+  /* RENDER */
+  function renderAll() { renderChannels(); renderProfile(); }
 
-function renderChannels() {
-  const channels = getChannels();
-  const total  = channels.length;
-  const active = channels.filter(c => c.on !== false).length;
-  document.getElementById('statTotal').textContent  = total;
-  document.getElementById('statActive').textContent = active;
-  document.getElementById('statHidden').textContent = total - active;
+  function renderChannels() {
+    const channels = getChannels();
+    const active = channels.filter(c => c.on !== false).length;
+    document.getElementById('statTotal').textContent  = channels.length;
+    document.getElementById('statActive').textContent = active;
+    document.getElementById('statHidden').textContent = channels.length - active;
 
-  const el = document.getElementById('channelItems');
-  if (!channels.length) {
-    el.innerHTML = `<div class="empty"><i class="fab fa-whatsapp"></i>No channels yet. Add your first one!</div>`;
-    return;
-  }
-
-  el.innerHTML = channels.map((c, i) => `
-    <div class="ch-item" data-id="${c.id}">
-      <i class="fas fa-grip-vertical ch-drag" title="Drag to reorder" data-index="${i}"></i>
-      <div class="ch-wa-ico"><i class="fab fa-whatsapp"></i></div>
-      <div class="ch-text">
-        <div class="ch-n">${esc(c.name)}</div>
-        <div class="ch-s">${esc(c.sub || '')}</div>
+    const el = document.getElementById('channelItems');
+    if (!channels.length) {
+      el.innerHTML = '<div class="empty"><i class="fab fa-whatsapp"></i>No channels yet. Add your first one!</div>';
+      return;
+    }
+    el.innerHTML = channels.map(c => `
+      <div class="ch-item" data-id="${c.id}">
+        <i class="fas fa-grip-vertical ch-drag"></i>
+        <div class="ch-wa-ico"><i class="fab fa-whatsapp"></i></div>
+        <div class="ch-text">
+          <div class="ch-n">${esc(c.name)}</div>
+          <div class="ch-s">${esc(c.sub || '')}</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" ${c.on !== false ? 'checked' : ''} onchange="toggleChannel(${c.id}, this.checked)">
+          <span class="toggle-slider"></span>
+        </label>
+        <button type="button" class="ch-edit-btn" onclick="openEdit(${c.id})"><i class="fas fa-pen"></i></button>
+        <button type="button" class="ch-del-btn" onclick="deleteChannel(${c.id})"><i class="fas fa-trash"></i></button>
       </div>
-      <label class="toggle" title="${c.on !== false ? 'Visible – click to hide' : 'Hidden – click to show'}">
-        <input type="checkbox" ${c.on !== false ? 'checked' : ''} onchange="toggleChannel(${c.id}, this.checked)">
-        <span class="toggle-slider"></span>
-      </label>
-      <button class="ch-edit-btn" onclick="openEdit(${c.id})" title="Edit"><i class="fas fa-pen"></i></button>
-      <button class="ch-del-btn" onclick="deleteChannel(${c.id})" title="Delete"><i class="fas fa-trash"></i></button>
-    </div>
-  `).join('');
-
-  initDrag();
-}
-
-function renderProfile() {
-  const p = getProfile();
-  document.getElementById('profName').value   = p.name;
-  document.getElementById('profHandle').value = p.handle;
-  document.getElementById('profBio').value    = p.bio;
-  document.getElementById('profPhone').value  = p.phone;
-  document.getElementById('profEmail').value  = p.email;
-}
-
-function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   CHANNEL CRUD
-═══════════════════════════════════════════════════════════════ */
-function toggleChannel(id, on) {
-  const ch = getChannels();
-  const c = ch.find(x => x.id === id);
-  if (c) { c.on = on; saveChannels(ch); renderChannels(); toast('Channel ' + (on ? 'shown' : 'hidden'), 'success'); }
-}
-
-function deleteChannel(id) {
-  if (!confirm('Delete this channel? This cannot be undone.')) return;
-  const ch = getChannels().filter(x => x.id !== id);
-  saveChannels(ch);
-  renderChannels();
-  toast('Channel deleted', 'success');
-}
-
-document.getElementById('addChannelBtn').onclick = () => openModal();
-
-function openEdit(id) {
-  const c = getChannels().find(x => x.id === id);
-  if (!c) return;
-  openModal(c);
-}
-
-function openModal(ch) {
-  document.getElementById('modalTitle').textContent = ch ? 'Edit Channel' : 'Add Channel';
-  document.getElementById('editId').value = ch ? ch.id : '';
-  document.getElementById('mName').value  = ch ? ch.name : '';
-  document.getElementById('mSub').value   = ch ? (ch.sub || '') : '';
-  document.getElementById('mUrl').value   = ch ? ch.url : '';
-  document.getElementById('channelModal').classList.add('open');
-  document.getElementById('mName').focus();
-}
-
-function closeModal() { document.getElementById('channelModal').classList.remove('open'); }
-document.getElementById('modalClose').onclick  = closeModal;
-document.getElementById('modalCancel').onclick = closeModal;
-document.getElementById('channelModal').addEventListener('click', e => { if (e.target === document.getElementById('channelModal')) closeModal(); });
-
-document.getElementById('modalSave').onclick = () => {
-  const name = document.getElementById('mName').value.trim();
-  const sub  = document.getElementById('mSub').value.trim();
-  const url  = document.getElementById('mUrl').value.trim();
-  const eid  = document.getElementById('editId').value;
-
-  if (!name) { toast('Channel name is required', 'error'); return; }
-  if (!url)  { toast('Channel URL is required', 'error'); return; }
-  if (!url.startsWith('https://')) { toast('URL must start with https://', 'error'); return; }
-
-  const ch = getChannels();
-  if (eid) {
-    const c = ch.find(x => x.id === Number(eid));
-    if (c) { c.name = name; c.sub = sub; c.url = url; }
-  } else {
-    const nextId = ch.length ? Math.max(...ch.map(x => x.id)) + 1 : 1;
-    ch.push({ id: nextId, name, sub, url, on: true });
+    `).join('');
+    initDrag();
   }
-  saveChannels(ch);
-  closeModal();
-  renderChannels();
-  toast(eid ? 'Channel updated!' : 'Channel added!', 'success');
-};
 
-/* ═══════════════════════════════════════════════════════════════
-   DRAG & DROP REORDER (touch + mouse)
-═══════════════════════════════════════════════════════════════ */
-let dragSrc = null, dragTarget = null;
+  function renderProfile() {
+    const p = getProfile();
+    document.getElementById('profName').value   = p.name;
+    document.getElementById('profHandle').value = p.handle;
+    document.getElementById('profBio').value    = p.bio;
+    document.getElementById('profPhone').value  = p.phone;
+    document.getElementById('profEmail').value  = p.email;
+  }
 
-function initDrag() {
-  const items = document.querySelectorAll('#channelItems .ch-item');
-  items.forEach(item => {
-    const handle = item.querySelector('.ch-drag');
-    handle.addEventListener('mousedown',  e => startDrag(e, item));
-    handle.addEventListener('touchstart', e => startDrag(e, item), { passive: false });
+  function esc(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  /* CHANNEL CRUD */
+  function toggleChannel(id, on) {
+    const ch = getChannels();
+    const c = ch.find(x => x.id === id);
+    if (c) { c.on = on; saveChannels(ch); renderChannels(); toast('Channel ' + (on ? 'shown' : 'hidden'), 'success'); }
+  }
+
+  function deleteChannel(id) {
+    if (!confirm('Delete this channel? This cannot be undone.')) return;
+    saveChannels(getChannels().filter(x => x.id !== id));
+    renderChannels();
+    toast('Channel deleted', 'success');
+  }
+
+  document.getElementById('addChannelBtn').onclick = () => openModal();
+
+  function openEdit(id) {
+    const c = getChannels().find(x => x.id === id);
+    if (c) openModal(c);
+  }
+
+  function openModal(ch) {
+    document.getElementById('modalTitle').textContent = ch ? 'Edit Channel' : 'Add Channel';
+    document.getElementById('editId').value = ch ? ch.id : '';
+    document.getElementById('mName').value  = ch ? ch.name : '';
+    document.getElementById('mSub').value   = ch ? (ch.sub || '') : '';
+    document.getElementById('mUrl').value   = ch ? ch.url : '';
+    document.getElementById('channelModal').classList.add('open');
+    document.getElementById('mName').focus();
+  }
+
+  function closeModal() { document.getElementById('channelModal').classList.remove('open'); }
+  document.getElementById('modalClose').onclick  = closeModal;
+  document.getElementById('modalCancel').onclick = closeModal;
+  document.getElementById('channelModal').addEventListener('click', e => {
+    if (e.target === document.getElementById('channelModal')) closeModal();
   });
-}
 
-function startDrag(e, item) {
-  e.preventDefault();
-  dragSrc = item;
-  item.style.opacity = '.5';
-  const moveEvt = e.type === 'mousedown' ? 'mousemove' : 'touchmove';
-  const upEvt   = e.type === 'mousedown' ? 'mouseup'   : 'touchend';
-
-  const onMove = ev => {
-    const clientY = ev.touches ? ev.touches[0].clientY : ev.clientY;
-    const el = document.elementFromPoint(
-      ev.touches ? ev.touches[0].clientX : ev.clientX, clientY
-    );
-    const target = el && el.closest('.ch-item');
-    if (target && target !== dragSrc) {
-      dragTarget = target;
-      document.querySelectorAll('.ch-item').forEach(i => i.style.borderColor = '');
-      target.style.borderColor = 'var(--green)';
+  document.getElementById('modalSave').onclick = () => {
+    const name = document.getElementById('mName').value.trim();
+    const sub  = document.getElementById('mSub').value.trim();
+    const url  = document.getElementById('mUrl').value.trim();
+    const eid  = document.getElementById('editId').value;
+    if (!name) { toast('Channel name is required', 'error'); return; }
+    if (!url)  { toast('Channel URL is required', 'error'); return; }
+    if (!url.startsWith('https://')) { toast('URL must start with https://', 'error'); return; }
+    const ch = getChannels();
+    if (eid) {
+      const c = ch.find(x => x.id === Number(eid));
+      if (c) { c.name = name; c.sub = sub; c.url = url; }
+    } else {
+      const nextId = ch.length ? Math.max(...ch.map(x => x.id)) + 1 : 1;
+      ch.push({ id: nextId, name, sub, url, on: true });
     }
+    saveChannels(ch);
+    closeModal();
+    renderChannels();
+    toast(eid ? 'Channel updated!' : 'Channel added!', 'success');
   };
 
-  const onUp = () => {
-    document.removeEventListener(moveEvt, onMove);
-    document.removeEventListener(upEvt,   onUp);
-    item.style.opacity = '';
-    document.querySelectorAll('.ch-item').forEach(i => i.style.borderColor = '');
-
-    if (dragTarget && dragSrc && dragTarget !== dragSrc) {
-      const ch    = getChannels();
-      const srcId = Number(dragSrc.dataset.id);
-      const tgtId = Number(dragTarget.dataset.id);
-      const si    = ch.findIndex(x => x.id === srcId);
-      const ti    = ch.findIndex(x => x.id === tgtId);
-      if (si > -1 && ti > -1) {
-        const [moved] = ch.splice(si, 1);
-        ch.splice(ti, 0, moved);
-        saveChannels(ch);
-        renderChannels();
-        toast('Order saved', 'success');
+  /* DRAG & DROP */
+  let dragSrc = null, dragTarget = null;
+  function initDrag() {
+    document.querySelectorAll('#channelItems .ch-item').forEach(item => {
+      const handle = item.querySelector('.ch-drag');
+      handle.addEventListener('mousedown',  e => startDrag(e, item));
+      handle.addEventListener('touchstart', e => startDrag(e, item), { passive: false });
+    });
+  }
+  function startDrag(e, item) {
+    e.preventDefault();
+    dragSrc = item;
+    item.style.opacity = '.5';
+    const moveEvt = e.type === 'mousedown' ? 'mousemove' : 'touchmove';
+    const upEvt   = e.type === 'mousedown' ? 'mouseup'   : 'touchend';
+    const onMove = ev => {
+      const cx = ev.touches ? ev.touches[0].clientX : ev.clientX;
+      const cy = ev.touches ? ev.touches[0].clientY : ev.clientY;
+      const el = document.elementFromPoint(cx, cy);
+      const target = el && el.closest('.ch-item');
+      if (target && target !== dragSrc) {
+        dragTarget = target;
+        document.querySelectorAll('.ch-item').forEach(i => i.style.borderColor = '');
+        target.style.borderColor = 'var(--green)';
       }
-    }
-    dragSrc = null; dragTarget = null;
+    };
+    const onUp = () => {
+      document.removeEventListener(moveEvt, onMove);
+      document.removeEventListener(upEvt,   onUp);
+      item.style.opacity = '';
+      document.querySelectorAll('.ch-item').forEach(i => i.style.borderColor = '');
+      if (dragTarget && dragSrc && dragTarget !== dragSrc) {
+        const ch = getChannels();
+        const si = ch.findIndex(x => x.id === Number(dragSrc.dataset.id));
+        const ti = ch.findIndex(x => x.id === Number(dragTarget.dataset.id));
+        if (si > -1 && ti > -1) {
+          const [moved] = ch.splice(si, 1);
+          ch.splice(ti, 0, moved);
+          saveChannels(ch);
+          renderChannels();
+          toast('Order saved', 'success');
+        }
+      }
+      dragSrc = null; dragTarget = null;
+    };
+    document.addEventListener(moveEvt, onMove);
+    document.addEventListener(upEvt,   onUp);
+  }
+
+  /* PROFILE SAVE */
+  document.getElementById('saveProfileBtn').onclick = () => {
+    const p = {
+      name:   document.getElementById('profName').value.trim(),
+      handle: document.getElementById('profHandle').value.trim(),
+      bio:    document.getElementById('profBio').value.trim(),
+      phone:  document.getElementById('profPhone').value.trim(),
+      email:  document.getElementById('profEmail').value.trim(),
+    };
+    if (!p.name)  { toast('Name is required', 'error'); return; }
+    if (!p.email) { toast('Email is required', 'error'); return; }
+    saveProfile(p);
+    toast('Profile saved!', 'success');
   };
 
-  document.addEventListener(moveEvt, onMove);
-  document.addEventListener(upEvt,   onUp);
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   PROFILE SAVE
-═══════════════════════════════════════════════════════════════ */
-document.getElementById('saveProfileBtn').onclick = () => {
-  const p = {
-    name:   document.getElementById('profName').value.trim(),
-    handle: document.getElementById('profHandle').value.trim(),
-    bio:    document.getElementById('profBio').value.trim(),
-    phone:  document.getElementById('profPhone').value.trim(),
-    email:  document.getElementById('profEmail').value.trim(),
+  /* SETTINGS */
+  document.getElementById('changePassBtn').onclick = () => {
+    const np = document.getElementById('newPass').value;
+    const cp = document.getElementById('confirmPass').value;
+    if (!np) { toast('Enter a new password', 'error'); return; }
+    if (np.length < 6) { toast('Password must be at least 6 characters', 'error'); return; }
+    if (np !== cp) { toast('Passwords do not match', 'error'); return; }
+    setPass(np);
+    document.getElementById('newPass').value = '';
+    document.getElementById('confirmPass').value = '';
+    toast('Password updated!', 'success');
   };
-  if (!p.name)  { toast('Name is required', 'error'); return; }
-  if (!p.email) { toast('Email is required', 'error'); return; }
-  saveProfile(p);
-  toast('Profile saved!', 'success');
-};
 
-/* ═══════════════════════════════════════════════════════════════
-   SETTINGS
-═══════════════════════════════════════════════════════════════ */
-document.getElementById('changePassBtn').onclick = () => {
-  const np = document.getElementById('newPass').value;
-  const cp = document.getElementById('confirmPass').value;
-  if (!np) { toast('Enter a new password', 'error'); return; }
-  if (np.length < 6) { toast('Password must be at least 6 characters', 'error'); return; }
-  if (np !== cp) { toast('Passwords do not match', 'error'); return; }
-  setPass(np);
-  document.getElementById('newPass').value = '';
-  document.getElementById('confirmPass').value = '';
-  toast('Password updated!', 'success');
-};
+  document.getElementById('resetBtn').onclick = () => {
+    if (!confirm('Reset all channels to the default list? All your changes will be lost.')) return;
+    saveChannels(JSON.parse(JSON.stringify(DEFAULTS)));
+    renderChannels();
+    toast('Channels reset to defaults', 'success');
+  };
 
-document.getElementById('resetBtn').onclick = () => {
-  if (!confirm('Reset all channels to the default list? All your changes will be lost.')) return;
-  saveChannels(JSON.parse(JSON.stringify(DEFAULTS)));
-  renderChannels();
-  toast('Channels reset to defaults', 'success');
-};
-
-/* ═══════════════════════════════════════════════════════════════
-   TOAST
-═══════════════════════════════════════════════════════════════ */
-let toastTimer;
-function toast(msg, type = 'success') {
-  const el  = document.getElementById('toast');
-  const ico = el.querySelector('i');
-  clearTimeout(toastTimer);
-  el.className = 'toast ' + type;
-  ico.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
-  document.getElementById('toastMsg').textContent = msg;
-  requestAnimationFrame(() => el.classList.add('show'));
-  toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
-}
+  /* TOAST */
+  let toastTimer;
+  function toast(msg, type = 'success') {
+    const el = document.getElementById('toast');
+    clearTimeout(toastTimer);
+    el.className = 'toast ' + type;
+    el.querySelector('i').className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+    document.getElementById('toastMsg').textContent = msg;
+    requestAnimationFrame(() => el.classList.add('show'));
+    toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
+  }
 </script>
 </body>
 </html>
