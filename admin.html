@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Clinton Mogere</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* ── DESIGN SYSTEM ──────────────────────────────────────── */
+    :root {
+      --bg:     #07070f;
+      --bg-2:   #0d0d1a;
+      --bg-3:   #111120;
+      --panel:  #13131f;
+      --card:   rgba(255,255,255,0.04);
+      --card-h: rgba(255,255,255,0.07);
+      --border: rgba(255,255,255,0.08);
+      --b2:     rgba(255,255,255,0.13);
+
+      --green:  #25D366;
+      --green-d:rgba(37,211,102,0.18);
+      --green-g:rgba(37,211,102,0.1);
+      --purple: #9333EA;
+      --red:    #EF4444;
+      --red-d:  rgba(239,68,68,0.15);
+      --amber:  #F59E0B;
+
+      --txt:    #F0F2FF;
+      --txt-2:  #8892A4;
+      --txt-3:  #404858;
+
+      --r:      14px;
+      --r-sm:   10px;
+      --ease:   cubic-bezier(.4,0,.2,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-tap-highlight-color: transparent; }
+    body {
+      background: var(--bg);
+      color: var(--txt);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      min-height: 100dvh;
+      overflow-x: hidden;
+    }
+
+    /* ── AUTH SCREEN ────────────────────────────────────────── */
+    #authScreen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100dvh;
+      padding: 24px;
+    }
+    .auth-card {
+      width: 100%;
+      max-width: 360px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 28px;
+      animation: pop .5s var(--ease) both;
+      position: relative;
+      overflow: hidden;
+    }
+    .auth-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      background: radial-gradient(circle at 30% 0%, rgba(37,211,102,0.07), transparent 60%);
+      pointer-events: none;
+    }
+    .auth-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      position: relative;
+    }
+    .auth-logo span { color: var(--green); }
+    .auth-sub { font-size: 13px; color: var(--txt-2); margin-bottom: 30px; }
+    .auth-card label { display: block; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--txt-3); margin-bottom: 8px; }
+    .auth-inp-wrap { position: relative; margin-bottom: 20px; }
+    .auth-inp-wrap i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--txt-3); font-size: 14px; }
+    .auth-input {
+      width: 100%;
+      padding: 13px 14px 13px 40px;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      color: var(--txt);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      outline: none;
+      transition: border-color .25s;
+    }
+    .auth-input:focus { border-color: var(--green); }
+    .auth-input::placeholder { color: var(--txt-3); }
+    .auth-err {
+      font-size: 12.5px;
+      color: var(--red);
+      margin-bottom: 14px;
+      min-height: 18px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-primary {
+      width: 100%;
+      padding: 14px;
+      background: var(--green);
+      border: none;
+      border-radius: var(--r-sm);
+      color: #041a0e;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity .22s, transform .18s;
+    }
+    .btn-primary:hover { opacity: .88; transform: translateY(-1px); }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+    /* ── DASHBOARD ──────────────────────────────────────────── */
+    #dashboard { display: none; min-height: 100dvh; }
+
+    /* Top bar */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      height: 58px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .topbar-brand {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .topbar-brand span { color: var(--green); }
+    .topbar-right { display: flex; align-items: center; gap: 10px; }
+    .icon-btn {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      background: transparent;
+      color: var(--txt-2);
+      cursor: pointer;
+      font-size: 14px;
+      transition: border-color .22s, color .22s, background .22s;
+      text-decoration: none;
+    }
+    .icon-btn:hover { border-color: var(--b2); color: var(--txt); background: var(--card-h); }
+    .icon-btn.danger:hover { border-color: var(--red); color: var(--red); }
+
+    /* Tab nav */
+    .tab-nav {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      background: var(--panel);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tab-nav::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 20px;
+      height: 46px;
+      border: none;
+      border-bottom: 2px solid transparent;
+      background: transparent;
+      color: var(--txt-2);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color .22s, border-color .22s;
+    }
+    .tab-btn:hover { color: var(--txt); }
+    .tab-btn.active { color: var(--green); border-bottom-color: var(--green); }
+    .tab-btn i { font-size: 13px; }
+
+    /* Content area */
+    .tab-content { display: none; padding: 24px 20px 60px; max-width: 680px; margin: 0 auto; }
+    .tab-content.active { display: block; animation: rise .3s var(--ease); }
+
+    /* ── SECTION LABEL ──────────────────────────────────────── */
+    .sec-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ── FORMS ──────────────────────────────────────────────── */
+    .form-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 22px;
+      margin-bottom: 20px;
+    }
+    .form-grid { display: grid; gap: 14px; }
+    .form-grid-2 { grid-template-columns: 1fr 1fr; }
+    @media (max-width:480px) { .form-grid-2 { grid-template-columns: 1fr; } }
+
+    .field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--txt-3);
+      margin-bottom: 7px;
+    }
+    .field input, .field textarea {
+      width: 100%;
+      padding: 11px 13px;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      color: var(--txt);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color .22s;
+    }
+    .field input:focus, .field textarea:focus { border-color: var(--green); }
+    .field input::placeholder, .field textarea::placeholder { color: var(--txt-3); }
+    .field textarea { resize: vertical; min-height: 80px; }
+
+    .btn-add {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 20px;
+      background: var(--green-d);
+      border: 1px solid var(--green);
+      border-radius: var(--r-sm);
+      color: var(--green);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .22s, transform .18s;
+    }
+    .btn-add:hover { background: rgba(37,211,102,.28); transform: translateY(-1px); }
+
+    .btn-save {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      background: var(--green);
+      border: none;
+      border-radius: var(--r-sm);
+      color: #041a0e;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity .22s, transform .18s;
+    }
+    .btn-save:hover { opacity: .88; transform: translateY(-1px); }
+
+    /* ── CHANNEL LIST ───────────────────────────────────────── */
+    #channelItems { display: flex; flex-direction: column; gap: 9px; }
+
+    .ch-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 15px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      transition: border-color .22s, box-shadow .22s;
+    }
+    .ch-item:hover { border-color: var(--b2); }
+
+    .ch-drag {
+      cursor: grab;
+      color: var(--txt-3);
+      font-size: 13px;
+      padding: 4px;
+      flex-shrink: 0;
+      touch-action: none;
+    }
+    .ch-drag:active { cursor: grabbing; }
+
+    .ch-wa-ico {
+      width: 36px; height: 36px;
+      border-radius: 9px;
+      background: linear-gradient(135deg,#075E54,#25D366);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .ch-wa-ico i { font-size: 16px; color: #fff; }
+
+    .ch-text { flex: 1; min-width: 0; }
+    .ch-n {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .ch-s { font-size: 11px; color: var(--txt-2); margin-top: 2px; }
+
+    .ch-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+    /* Toggle switch */
+    .toggle {
+      position: relative;
+      width: 38px; height: 22px;
+      flex-shrink: 0;
+    }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .toggle-slider {
+      position: absolute;
+      inset: 0;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      cursor: pointer;
+      transition: background .22s, border-color .22s;
+    }
+    .toggle-slider::before {
+      content: '';
+      position: absolute;
+      width: 16px; height: 16px;
+      left: 2px; top: 2px;
+      background: var(--txt-3);
+      border-radius: 50%;
+      transition: transform .22s, background .22s;
+    }
+    .toggle input:checked + .toggle-slider { background: var(--green-d); border-color: var(--green); }
+    .toggle input:checked + .toggle-slider::before { transform: translateX(16px); background: var(--green); }
+
+    .ch-edit-btn, .ch-del-btn {
+      width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: transparent;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all .22s;
+      flex-shrink: 0;
+    }
+    .ch-edit-btn { color: var(--txt-2); }
+    .ch-edit-btn:hover { border-color: var(--amber); color: var(--amber); background: rgba(245,158,11,.1); }
+    .ch-del-btn { color: var(--txt-3); }
+    .ch-del-btn:hover { border-color: var(--red); color: var(--red); background: var(--red-d); }
+
+    /* ── MODAL ──────────────────────────────────────────────── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.65);
+      backdrop-filter: blur(6px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      width: 100%;
+      max-width: 440px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px 24px;
+      animation: pop .32s var(--ease) both;
+    }
+    .modal-head {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-close {
+      width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--txt-2);
+      cursor: pointer;
+      font-size: 13px;
+      transition: all .22s;
+    }
+    .modal-close:hover { border-color: var(--b2); color: var(--txt); }
+    .modal-form { display: flex; flex-direction: column; gap: 14px; }
+    .modal-actions { display: flex; gap: 10px; margin-top: 6px; }
+    .btn-cancel {
+      flex: 1;
+      padding: 11px;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      color: var(--txt-2);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .22s;
+    }
+    .btn-cancel:hover { border-color: var(--b2); color: var(--txt); }
+
+    /* ── TOAST ──────────────────────────────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(16px);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 20px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--txt);
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s, transform .3s;
+      z-index: 500;
+      white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast.success { border-color: var(--green); }
+    .toast.success i { color: var(--green); }
+    .toast.error { border-color: var(--red); }
+    .toast.error i { color: var(--red); }
+
+    /* ── STATS ROW ──────────────────────────────────────────── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+    .stat-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 16px 14px;
+      text-align: center;
+    }
+    .stat-n {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      background: linear-gradient(135deg,var(--green),var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-l { font-size: 11px; color: var(--txt-3); margin-top: 3px; }
+
+    /* ── UTILITIES ──────────────────────────────────────────── */
+    .empty {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--txt-3);
+      font-size: 13px;
+    }
+    .empty i { font-size: 32px; margin-bottom: 10px; display: block; opacity: .4; }
+
+    /* ── ANIMATIONS ─────────────────────────────────────────── */
+    @keyframes rise { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes pop  { from { opacity:0; transform:scale(.94); } to { opacity:1; transform:scale(1); } }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--bg-3); border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     AUTH SCREEN
+════════════════════════════════════════════ -->
+<div id="authScreen">
+  <div class="auth-card">
+    <div class="auth-logo">Clinton <span>Admin</span></div>
+    <div class="auth-sub">Sign in to manage your link-in-bio page</div>
+    <label for="authPass">Password</label>
+    <div class="auth-inp-wrap">
+      <i class="fas fa-lock"></i>
+      <input type="password" id="authPass" class="auth-input" placeholder="Enter password" autocomplete="current-password">
+    </div>
+    <div class="auth-err" id="authErr" aria-live="polite"></div>
+    <button class="btn-primary" id="authBtn" type="button">Sign In</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     DASHBOARD
+════════════════════════════════════════════ -->
+<div id="dashboard">
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="topbar-brand">Clinton <span>Admin</span></div>
+    <div class="topbar-right">
+      <a href="/" class="icon-btn" title="View public page" target="_blank" rel="noopener">
+        <i class="fas fa-external-link-alt"></i>
+      </a>
+      <button class="icon-btn danger" id="logoutBtn" title="Logout">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Tab navigation -->
+  <div class="tab-nav">
+    <button class="tab-btn active" data-tab="channels"><i class="fab fa-whatsapp"></i> Channels</button>
+    <button class="tab-btn" data-tab="profile"><i class="fas fa-user"></i> Profile</button>
+    <button class="tab-btn" data-tab="settings"><i class="fas fa-cog"></i> Settings</button>
+  </div>
+
+  <!-- ── CHANNELS TAB ── -->
+  <div class="tab-content active" id="tab-channels">
+
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-n" id="statTotal">0</div>
+        <div class="stat-l">Total Channels</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-n" id="statActive">0</div>
+        <div class="stat-l">Visible</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-n" id="statHidden">0</div>
+        <div class="stat-l">Hidden</div>
+      </div>
+    </div>
+
+    <div class="sec-title">
+      <span>Your Channels</span>
+      <button class="btn-add" id="addChannelBtn"><i class="fas fa-plus"></i> Add Channel</button>
+    </div>
+
+    <div id="channelItems">
+      <!-- rendered by JS -->
+    </div>
+  </div>
+
+  <!-- ── PROFILE TAB ── -->
+  <div class="tab-content" id="tab-profile">
+    <div class="sec-title"><span>Profile Info</span></div>
+    <div class="form-card">
+      <div class="form-grid">
+        <div class="field">
+          <label>Display Name</label>
+          <input type="text" id="profName" placeholder="Clinton Mogere">
+        </div>
+        <div class="field">
+          <label>Handle / Username</label>
+          <input type="text" id="profHandle" placeholder="@Clin_memes">
+        </div>
+        <div class="field">
+          <label>Short Bio</label>
+          <textarea id="profBio" placeholder="Content Creator & Meme Lord 🔥"></textarea>
+        </div>
+        <div class="form-grid form-grid-2">
+          <div class="field">
+            <label>Phone Number</label>
+            <input type="tel" id="profPhone" placeholder="+254714590380">
+          </div>
+          <div class="field">
+            <label>Email Address</label>
+            <input type="email" id="profEmail" placeholder="you@example.com">
+          </div>
+        </div>
+        <button class="btn-save" id="saveProfileBtn"><i class="fas fa-check"></i> Save Profile</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SETTINGS TAB ── -->
+  <div class="tab-content" id="tab-settings">
+    <div class="sec-title"><span>Settings</span></div>
+    <div class="form-card">
+      <div class="form-grid">
+        <div class="field">
+          <label>New Password</label>
+          <input type="password" id="newPass" placeholder="Leave blank to keep current">
+        </div>
+        <div class="field">
+          <label>Confirm New Password</label>
+          <input type="password" id="confirmPass" placeholder="Repeat new password">
+        </div>
+        <button class="btn-save" id="changePassBtn"><i class="fas fa-key"></i> Update Password</button>
+      </div>
+    </div>
+
+    <div class="form-card" style="margin-top:16px;">
+      <div class="sec-title" style="font-size:14px;margin-bottom:14px;"><span>Danger Zone</span></div>
+      <p style="font-size:13px;color:var(--txt-2);margin-bottom:16px;">Reset all channels to the default list. This cannot be undone.</p>
+      <button class="btn-cancel" id="resetBtn" style="border-color:var(--red);color:var(--red);"><i class="fas fa-rotate-left"></i> Reset to Defaults</button>
+    </div>
+  </div>
+
+</div><!-- /dashboard -->
+
+<!-- ══════════════════════════════════════════
+     MODAL — ADD / EDIT CHANNEL
+════════════════════════════════════════════ -->
+<div class="modal-overlay" id="channelModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <div class="modal-head">
+      <span id="modalTitle">Add Channel</span>
+      <button class="modal-close" id="modalClose" aria-label="Close"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-form">
+      <input type="hidden" id="editId">
+      <div class="field">
+        <label>Channel Name *</label>
+        <input type="text" id="mName" placeholder="e.g. Campus Chronicles ❤️" maxlength="80">
+      </div>
+      <div class="field">
+        <label>Description / Subtitle</label>
+        <input type="text" id="mSub" placeholder="e.g. Campus Life & Stories" maxlength="80">
+      </div>
+      <div class="field">
+        <label>WhatsApp Channel URL *</label>
+        <input type="url" id="mUrl" placeholder="https://whatsapp.com/channel/...">
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" id="modalCancel">Cancel</button>
+        <button class="btn-save" id="modalSave" style="flex:1.5;justify-content:center;"><i class="fas fa-check"></i> Save Channel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="alert"><i class="fas fa-check-circle"></i><span id="toastMsg"></span></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════════════════════════ */
+const DEFAULTS = [
+  {id:1,  name:"WhatsApp Stickers",        sub:"Stickers & GIFs",                url:"https://whatsapp.com/channel/0029VbD59BvADTOJ0Jdy2S21", on:true},
+  {id:2,  name:"Campus Chronicles ❤️ ✨",  sub:"Campus Life & Stories",           url:"https://whatsapp.com/channel/0029VbAoYs4H5JM6vUKB4m1c", on:true},
+  {id:3,  name:"TikTok Videos",            sub:"Viral TikTok Content",            url:"https://whatsapp.com/channel/0029Vb7VRaL4Y9lnxwMQwq2A", on:true},
+  {id:4,  name:"Toxic Memes ❤️😂",         sub:"Daily Meme Drops",                url:"https://whatsapp.com/channel/0029VbBJ9owCHDyk5Mod8S38", on:true},
+  {id:5,  name:"Daily Wallpapers ❤️",      sub:"HD Wallpapers Every Day",         url:"https://whatsapp.com/channel/0029Vb6GvIAK5cDN9KLgrT0x", on:true},
+  {id:6,  name:"Wallpapers 🎀",            sub:"Aesthetic Wallpaper Collection",  url:"https://whatsapp.com/channel/0029Vb7VaFC1Hsq2q15r7Y3v", on:true},
+  {id:7,  name:"Hot Memes ❤️😂",           sub:"Fresh Memes Every Day",           url:"https://whatsapp.com/channel/0029Vb83LTgLNSZx3jvhbB2x", on:true},
+  {id:8,  name:"Girly Polished ❤️❤️",     sub:"Feminine Aesthetic Content",      url:"https://whatsapp.com/channel/0029Vb809M9HgZWYaLaWsO0G", on:true},
+  {id:9,  name:"Stickers 💗",              sub:"Cute Sticker Collection",         url:"https://whatsapp.com/channel/0029Vb6roIlLo4hYQzUtMB3H", on:true},
+  {id:10, name:"Sex Education",            sub:"Health & Education 🔞",           url:"https://whatsapp.com/channel/0029VbBHNisCRs1q2GTVJs0H", on:true},
+  {id:11, name:"Nasty Narratives 🥵📖💦", sub:"Adult Content 18+",               url:"https://whatsapp.com/channel/0029Vb7OiIMCMY0HzuHL423P", on:true},
+];
+
+const DEFAULT_PROFILE = {
+  name:'Clinton Mogere', handle:'@Clin_memes',
+  bio:'Content Creator & Meme Lord 🔥 | Campus Chronicles | Entertainment & More',
+  phone:'+254714590380', email:'clintmogere@gmail.com'
+};
+
+/* ═══════════════════════════════════════════════════════════════
+   STORAGE HELPERS
+═══════════════════════════════════════════════════════════════ */
+const ls = {
+  get: k => { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } },
+  set: (k,v) => localStorage.setItem(k, JSON.stringify(v))
+};
+
+function getChannels() {
+  const s = ls.get('cm_channels');
+  return Array.isArray(s) ? s : JSON.parse(JSON.stringify(DEFAULTS));
+}
+function saveChannels(c) { ls.set('cm_channels', c); }
+
+function getProfile() {
+  return Object.assign({}, DEFAULT_PROFILE, ls.get('cm_profile') || {});
+}
+function saveProfile(p) { ls.set('cm_profile', p); }
+
+/* Password: stored as base64 of raw string (simple, personal site) */
+const PASS_KEY = 'cm_pass';
+function getPassHash() { return localStorage.getItem(PASS_KEY) || btoa('clinton2024'); }
+function checkPass(p) { return btoa(p) === getPassHash(); }
+function setPass(p) { localStorage.setItem(PASS_KEY, btoa(p)); }
+
+/* Session */
+const SESSION_KEY = 'cm_session';
+function isLoggedIn() { return sessionStorage.getItem(SESSION_KEY) === '1'; }
+function login() { sessionStorage.setItem(SESSION_KEY, '1'); }
+function logout() { sessionStorage.removeItem(SESSION_KEY); location.reload(); }
+
+/* ═══════════════════════════════════════════════════════════════
+   AUTH
+═══════════════════════════════════════════════════════════════ */
+const authScreen = document.getElementById('authScreen');
+const dashboard  = document.getElementById('dashboard');
+
+if (isLoggedIn()) { show(); } else { authScreen.style.display = 'flex'; }
+
+document.getElementById('authBtn').onclick = doLogin;
+document.getElementById('authPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+document.getElementById('logoutBtn').onclick = logout;
+
+function doLogin() {
+  const p = document.getElementById('authPass').value;
+  const err = document.getElementById('authErr');
+  if (!p) { showErr('Please enter a password.'); return; }
+  if (checkPass(p)) {
+    login(); show();
+  } else {
+    showErr('<i class="fas fa-exclamation-circle"></i> Incorrect password. Try again.');
+    document.getElementById('authPass').value = '';
+    document.getElementById('authPass').focus();
+  }
+}
+function showErr(msg) {
+  document.getElementById('authErr').innerHTML = msg;
+  document.getElementById('authPass').style.borderColor = 'var(--red)';
+  setTimeout(() => { document.getElementById('authPass').style.borderColor = ''; }, 2000);
+}
+function show() {
+  authScreen.style.display = 'none';
+  dashboard.style.display = 'block';
+  renderAll();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TABS
+═══════════════════════════════════════════════════════════════ */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   RENDER
+═══════════════════════════════════════════════════════════════ */
+function renderAll() {
+  renderChannels();
+  renderProfile();
+}
+
+function renderChannels() {
+  const channels = getChannels();
+  const total  = channels.length;
+  const active = channels.filter(c => c.on !== false).length;
+  document.getElementById('statTotal').textContent  = total;
+  document.getElementById('statActive').textContent = active;
+  document.getElementById('statHidden').textContent = total - active;
+
+  const el = document.getElementById('channelItems');
+  if (!channels.length) {
+    el.innerHTML = `<div class="empty"><i class="fab fa-whatsapp"></i>No channels yet. Add your first one!</div>`;
+    return;
+  }
+
+  el.innerHTML = channels.map((c, i) => `
+    <div class="ch-item" data-id="${c.id}">
+      <i class="fas fa-grip-vertical ch-drag" title="Drag to reorder" data-index="${i}"></i>
+      <div class="ch-wa-ico"><i class="fab fa-whatsapp"></i></div>
+      <div class="ch-text">
+        <div class="ch-n">${esc(c.name)}</div>
+        <div class="ch-s">${esc(c.sub || '')}</div>
+      </div>
+      <label class="toggle" title="${c.on !== false ? 'Visible – click to hide' : 'Hidden – click to show'}">
+        <input type="checkbox" ${c.on !== false ? 'checked' : ''} onchange="toggleChannel(${c.id}, this.checked)">
+        <span class="toggle-slider"></span>
+      </label>
+      <button class="ch-edit-btn" onclick="openEdit(${c.id})" title="Edit"><i class="fas fa-pen"></i></button>
+      <button class="ch-del-btn" onclick="deleteChannel(${c.id})" title="Delete"><i class="fas fa-trash"></i></button>
+    </div>
+  `).join('');
+
+  initDrag();
+}
+
+function renderProfile() {
+  const p = getProfile();
+  document.getElementById('profName').value   = p.name;
+  document.getElementById('profHandle').value = p.handle;
+  document.getElementById('profBio').value    = p.bio;
+  document.getElementById('profPhone').value  = p.phone;
+  document.getElementById('profEmail').value  = p.email;
+}
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CHANNEL CRUD
+═══════════════════════════════════════════════════════════════ */
+function toggleChannel(id, on) {
+  const ch = getChannels();
+  const c = ch.find(x => x.id === id);
+  if (c) { c.on = on; saveChannels(ch); renderChannels(); toast('Channel ' + (on ? 'shown' : 'hidden'), 'success'); }
+}
+
+function deleteChannel(id) {
+  if (!confirm('Delete this channel? This cannot be undone.')) return;
+  const ch = getChannels().filter(x => x.id !== id);
+  saveChannels(ch);
+  renderChannels();
+  toast('Channel deleted', 'success');
+}
+
+document.getElementById('addChannelBtn').onclick = () => openModal();
+
+function openEdit(id) {
+  const c = getChannels().find(x => x.id === id);
+  if (!c) return;
+  openModal(c);
+}
+
+function openModal(ch) {
+  document.getElementById('modalTitle').textContent = ch ? 'Edit Channel' : 'Add Channel';
+  document.getElementById('editId').value = ch ? ch.id : '';
+  document.getElementById('mName').value  = ch ? ch.name : '';
+  document.getElementById('mSub').value   = ch ? (ch.sub || '') : '';
+  document.getElementById('mUrl').value   = ch ? ch.url : '';
+  document.getElementById('channelModal').classList.add('open');
+  document.getElementById('mName').focus();
+}
+
+function closeModal() { document.getElementById('channelModal').classList.remove('open'); }
+document.getElementById('modalClose').onclick  = closeModal;
+document.getElementById('modalCancel').onclick = closeModal;
+document.getElementById('channelModal').addEventListener('click', e => { if (e.target === document.getElementById('channelModal')) closeModal(); });
+
+document.getElementById('modalSave').onclick = () => {
+  const name = document.getElementById('mName').value.trim();
+  const sub  = document.getElementById('mSub').value.trim();
+  const url  = document.getElementById('mUrl').value.trim();
+  const eid  = document.getElementById('editId').value;
+
+  if (!name) { toast('Channel name is required', 'error'); return; }
+  if (!url)  { toast('Channel URL is required', 'error'); return; }
+  if (!url.startsWith('https://')) { toast('URL must start with https://', 'error'); return; }
+
+  const ch = getChannels();
+  if (eid) {
+    const c = ch.find(x => x.id === Number(eid));
+    if (c) { c.name = name; c.sub = sub; c.url = url; }
+  } else {
+    const nextId = ch.length ? Math.max(...ch.map(x => x.id)) + 1 : 1;
+    ch.push({ id: nextId, name, sub, url, on: true });
+  }
+  saveChannels(ch);
+  closeModal();
+  renderChannels();
+  toast(eid ? 'Channel updated!' : 'Channel added!', 'success');
+};
+
+/* ═══════════════════════════════════════════════════════════════
+   DRAG & DROP REORDER (touch + mouse)
+═══════════════════════════════════════════════════════════════ */
+let dragSrc = null, dragTarget = null;
+
+function initDrag() {
+  const items = document.querySelectorAll('#channelItems .ch-item');
+  items.forEach(item => {
+    const handle = item.querySelector('.ch-drag');
+    handle.addEventListener('mousedown',  e => startDrag(e, item));
+    handle.addEventListener('touchstart', e => startDrag(e, item), { passive: false });
+  });
+}
+
+function startDrag(e, item) {
+  e.preventDefault();
+  dragSrc = item;
+  item.style.opacity = '.5';
+  const moveEvt = e.type === 'mousedown' ? 'mousemove' : 'touchmove';
+  const upEvt   = e.type === 'mousedown' ? 'mouseup'   : 'touchend';
+
+  const onMove = ev => {
+    const clientY = ev.touches ? ev.touches[0].clientY : ev.clientY;
+    const el = document.elementFromPoint(
+      ev.touches ? ev.touches[0].clientX : ev.clientX, clientY
+    );
+    const target = el && el.closest('.ch-item');
+    if (target && target !== dragSrc) {
+      dragTarget = target;
+      document.querySelectorAll('.ch-item').forEach(i => i.style.borderColor = '');
+      target.style.borderColor = 'var(--green)';
+    }
+  };
+
+  const onUp = () => {
+    document.removeEventListener(moveEvt, onMove);
+    document.removeEventListener(upEvt,   onUp);
+    item.style.opacity = '';
+    document.querySelectorAll('.ch-item').forEach(i => i.style.borderColor = '');
+
+    if (dragTarget && dragSrc && dragTarget !== dragSrc) {
+      const ch    = getChannels();
+      const srcId = Number(dragSrc.dataset.id);
+      const tgtId = Number(dragTarget.dataset.id);
+      const si    = ch.findIndex(x => x.id === srcId);
+      const ti    = ch.findIndex(x => x.id === tgtId);
+      if (si > -1 && ti > -1) {
+        const [moved] = ch.splice(si, 1);
+        ch.splice(ti, 0, moved);
+        saveChannels(ch);
+        renderChannels();
+        toast('Order saved', 'success');
+      }
+    }
+    dragSrc = null; dragTarget = null;
+  };
+
+  document.addEventListener(moveEvt, onMove);
+  document.addEventListener(upEvt,   onUp);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PROFILE SAVE
+═══════════════════════════════════════════════════════════════ */
+document.getElementById('saveProfileBtn').onclick = () => {
+  const p = {
+    name:   document.getElementById('profName').value.trim(),
+    handle: document.getElementById('profHandle').value.trim(),
+    bio:    document.getElementById('profBio').value.trim(),
+    phone:  document.getElementById('profPhone').value.trim(),
+    email:  document.getElementById('profEmail').value.trim(),
+  };
+  if (!p.name)  { toast('Name is required', 'error'); return; }
+  if (!p.email) { toast('Email is required', 'error'); return; }
+  saveProfile(p);
+  toast('Profile saved!', 'success');
+};
+
+/* ═══════════════════════════════════════════════════════════════
+   SETTINGS
+═══════════════════════════════════════════════════════════════ */
+document.getElementById('changePassBtn').onclick = () => {
+  const np = document.getElementById('newPass').value;
+  const cp = document.getElementById('confirmPass').value;
+  if (!np) { toast('Enter a new password', 'error'); return; }
+  if (np.length < 6) { toast('Password must be at least 6 characters', 'error'); return; }
+  if (np !== cp) { toast('Passwords do not match', 'error'); return; }
+  setPass(np);
+  document.getElementById('newPass').value = '';
+  document.getElementById('confirmPass').value = '';
+  toast('Password updated!', 'success');
+};
+
+document.getElementById('resetBtn').onclick = () => {
+  if (!confirm('Reset all channels to the default list? All your changes will be lost.')) return;
+  saveChannels(JSON.parse(JSON.stringify(DEFAULTS)));
+  renderChannels();
+  toast('Channels reset to defaults', 'success');
+};
+
+/* ═══════════════════════════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════════════════════════ */
+let toastTimer;
+function toast(msg, type = 'success') {
+  const el  = document.getElementById('toast');
+  const ico = el.querySelector('i');
+  clearTimeout(toastTimer);
+  el.className = 'toast ' + type;
+  ico.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+  document.getElementById('toastMsg').textContent = msg;
+  requestAnimationFrame(() => el.classList.add('show'));
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
+}
+</script>
+</body>
+</html>

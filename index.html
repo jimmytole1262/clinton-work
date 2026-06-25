@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Clinton Mogere — Content Creator | Campus Chronicles | Memes & More">
+  <title>Clinton Mogere</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* ============================================================
+       DESIGN SYSTEM — NEON NOIR EDITORIAL
+       ============================================================ */
+    :root {
+      --bg:          #07070f;
+      --bg-2:        #0d0d1a;
+      --bg-3:        #111120;
+      --card:        rgba(255,255,255,0.035);
+      --card-hover:  rgba(255,255,255,0.065);
+      --border:      rgba(255,255,255,0.07);
+
+      --green:       #25D366;
+      --green-dim:   rgba(37,211,102,0.22);
+      --green-glow:  rgba(37,211,102,0.12);
+      --purple:      #9333EA;
+      --purple-dim:  rgba(147,51,234,0.22);
+      --pink:        #EC4899;
+      --ig:          #E1306C;
+      --fb:          #1877F2;
+      --fb-dim:      rgba(24,119,242,0.22);
+
+      --txt:         #F0F2FF;
+      --txt-2:       #8892A4;
+      --txt-3:       #404858;
+
+      --r:           14px;
+      --r-sm:        10px;
+      --ease:        cubic-bezier(.4,0,.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      background: var(--bg);
+      color: var(--txt);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+      min-height: 100dvh;
+      overflow-x: hidden;
+    }
+
+    /* Ambient background blobs */
+    body::before, body::after {
+      content: '';
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(80px);
+      z-index: 0;
+    }
+    body::before {
+      width: 360px; height: 360px;
+      top: -80px; left: -80px;
+      background: radial-gradient(circle, var(--green-glow) 0%, transparent 70%);
+    }
+    body::after {
+      width: 300px; height: 300px;
+      bottom: -60px; right: -60px;
+      background: radial-gradient(circle, var(--purple-dim) 0%, transparent 70%);
+      opacity: .35;
+    }
+
+    /* ============================================================
+       LAYOUT
+       ============================================================ */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 460px;
+      margin: 0 auto;
+      padding: 0 18px 72px;
+    }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 52px 0 28px;
+      animation: rise .7s var(--ease) both;
+    }
+
+    /* Spinning gradient ring */
+    .avatar-wrap {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      margin-bottom: 22px;
+    }
+    .avatar-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: conic-gradient(var(--green), var(--purple), var(--pink), var(--green));
+      animation: spin 5s linear infinite;
+    }
+    .avatar-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      background: conic-gradient(var(--green), var(--purple), var(--pink), var(--green));
+      filter: blur(14px);
+      opacity: .55;
+      animation: spin 5s linear infinite;
+    }
+    .avatar {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--bg-3);
+      border: 3px solid var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+    .avatar .initials {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 34px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--green), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      user-select: none;
+    }
+
+    .hero-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -.6px;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+    .hero-handle {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--green);
+      letter-spacing: .3px;
+      margin-bottom: 13px;
+    }
+    .hero-bio {
+      font-size: 14px;
+      color: var(--txt-2);
+      text-align: center;
+      max-width: 310px;
+      line-height: 1.65;
+    }
+
+    /* ============================================================
+       SECTION HEADERS
+       ============================================================ */
+    .section { margin-top: 34px; }
+    .section:nth-child(2) { animation: rise .7s var(--ease) .1s both; }
+    .section:nth-child(3) { animation: rise .7s var(--ease) .18s both; }
+    .section:nth-child(4) { animation: rise .7s var(--ease) .26s both; }
+    .section:nth-child(5) { animation: rise .7s var(--ease) .34s both; }
+
+    .sec-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .sec-head span {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 2.2px;
+      text-transform: uppercase;
+      color: var(--txt-3);
+      white-space: nowrap;
+    }
+    .sec-head::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ============================================================
+       CHANNEL CARDS
+       ============================================================ */
+    .channels { display: flex; flex-direction: column; gap: 9px; }
+
+    .ch-card {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 13px 15px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      text-decoration: none;
+      color: var(--txt);
+      position: relative;
+      overflow: hidden;
+      transition: border-color .28s var(--ease), box-shadow .28s var(--ease), transform .22s var(--ease), background .28s var(--ease);
+    }
+    .ch-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, var(--green-dim) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity .28s var(--ease);
+    }
+    .ch-card:hover, .ch-card:focus-visible {
+      border-color: var(--green);
+      box-shadow: 0 0 22px var(--green-glow), inset 0 1px 0 rgba(37,211,102,.1);
+      transform: translateX(5px);
+      background: var(--card-hover);
+      outline: none;
+    }
+    .ch-card:hover::before, .ch-card:focus-visible::before { opacity: 1; }
+
+    .ch-icon {
+      width: 42px; height: 42px;
+      border-radius: 11px;
+      background: linear-gradient(135deg, #075E54, #25D366);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 4px 12px rgba(37,211,102,.2);
+    }
+    .ch-icon i { font-size: 19px; color: #fff; }
+
+    .ch-info {
+      flex: 1;
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+    }
+    .ch-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .ch-sub {
+      font-size: 12px;
+      color: var(--txt-2);
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .ch-arrow {
+      color: var(--txt-3);
+      font-size: 11px;
+      position: relative;
+      z-index: 1;
+      transition: color .22s, transform .22s;
+      flex-shrink: 0;
+    }
+    .ch-card:hover .ch-arrow, .ch-card:focus-visible .ch-arrow {
+      color: var(--green);
+      transform: translateX(3px);
+    }
+
+    /* ============================================================
+       SOCIAL CARDS — 2-COL GRID
+       ============================================================ */
+    .socials {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .socials .social-wide { grid-column: 1 / -1; } /* full-width row */
+
+    .soc-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 20px 12px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      text-decoration: none;
+      color: var(--txt);
+      position: relative;
+      overflow: hidden;
+      transition: border-color .28s var(--ease), box-shadow .28s var(--ease), transform .22s var(--ease), background .28s var(--ease);
+      min-height: 96px;
+    }
+    .soc-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity .28s var(--ease);
+    }
+    .soc-card:hover, .soc-card:focus-visible {
+      transform: translateY(-4px);
+      background: var(--card-hover);
+      outline: none;
+    }
+    .soc-card:hover::before, .soc-card:focus-visible::before { opacity: 1; }
+
+    /* Per-platform colours */
+    .soc-card.wa  { --c: #25D366; --cg: rgba(37,211,102,.12); }
+    .soc-card.ig  { --c: #E1306C; --cg: rgba(225,48,108,.12); }
+    .soc-card.fb  { --c: #1877F2; --cg: rgba(24,119,242,.12); }
+
+    .soc-card::before { background: radial-gradient(circle at center, var(--cg, rgba(255,255,255,.06)), transparent 70%); }
+    .soc-card:hover { border-color: var(--c, rgba(255,255,255,.2)); box-shadow: 0 0 26px var(--cg, rgba(255,255,255,.06)); }
+
+    .soc-icon {
+      width: 46px; height: 46px;
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      transition: transform .22s var(--ease);
+    }
+    .soc-card:hover .soc-icon { transform: scale(1.08); }
+    .soc-card.wa  .soc-icon { background: linear-gradient(135deg,#075E54,#25D366); box-shadow: 0 4px 14px rgba(37,211,102,.25); }
+    .soc-card.ig  .soc-icon { background: linear-gradient(135deg,#6228A4,#E1306C,#F77737); box-shadow: 0 4px 14px rgba(225,48,108,.25); }
+    .soc-card.fb  .soc-icon { background: linear-gradient(135deg,#1877F2,#0a5dc9); box-shadow: 0 4px 14px rgba(24,119,242,.25); }
+    .soc-icon i { font-size: 21px; color: #fff; }
+
+    .soc-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ============================================================
+       CONTACT CARDS
+       ============================================================ */
+    .contacts { display: flex; flex-direction: column; gap: 9px; }
+
+    .con-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 15px 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      text-decoration: none;
+      color: var(--txt);
+      transition: border-color .28s var(--ease), transform .22s var(--ease), background .28s var(--ease);
+    }
+    .con-card:hover, .con-card:focus-visible {
+      border-color: rgba(255,255,255,.18);
+      background: var(--card-hover);
+      transform: translateX(4px);
+      outline: none;
+    }
+
+    .con-ico {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .con-ico.phone { background: linear-gradient(135deg,#059669,#10B981); box-shadow: 0 4px 12px rgba(16,185,129,.2); }
+    .con-ico.email { background: linear-gradient(135deg,#2563EB,#3B82F6); box-shadow: 0 4px 12px rgba(59,130,246,.2); }
+    .con-ico i { font-size: 17px; color: #fff; }
+
+    .con-body { flex: 1; min-width: 0; }
+    .con-label {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: var(--txt-3);
+      margin-bottom: 3px;
+    }
+    .con-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .con-arr { color: var(--txt-3); font-size: 11px; flex-shrink: 0; transition: transform .22s, color .22s; }
+    .con-card:hover .con-arr, .con-card:focus-visible .con-arr { color: var(--txt-2); transform: translateX(3px); }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    .footer {
+      margin-top: 52px;
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      animation: rise .7s var(--ease) .42s both;
+    }
+    .footer p { font-size: 12px; color: var(--txt-3); }
+    .footer a { color: var(--txt-3); text-decoration: none; transition: color .2s; }
+    .footer a:hover { color: var(--txt-2); }
+
+    /* ============================================================
+       ANIMATIONS
+       ============================================================ */
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ============================================================
+       SCROLLBAR
+       ============================================================ */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--bg-3); border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+<main class="page">
+
+  <!-- ── HERO ──────────────────────────────────── -->
+  <section class="hero">
+    <div class="avatar-wrap">
+      <div class="avatar">
+        <!-- Replace the line below with an <img> tag when you have a photo:
+             <img src="photo.jpg" alt="Clinton Mogere"> -->
+        <span class="initials">CM</span>
+      </div>
+    </div>
+    <h1 class="hero-name" id="heroName">Clinton Mogere</h1>
+    <p class="hero-handle" id="heroHandle">@Clin_memes</p>
+    <p class="hero-bio" id="heroBio">Content Creator &amp; Meme Lord 🔥 | Campus Chronicles | Entertainment &amp; More</p>
+  </section>
+
+  <!-- ── WHATSAPP CHANNELS ─────────────────────── -->
+  <section class="section">
+    <div class="sec-head"><span>WhatsApp Channels</span></div>
+    <div class="channels" id="channelsList">
+      <!-- Populated by JS -->
+      <div style="text-align:center;padding:24px 0;color:var(--txt-3);font-size:13px;">Loading channels…</div>
+    </div>
+  </section>
+
+  <!-- ── SOCIALS ───────────────────────────────── -->
+  <section class="section">
+    <div class="sec-head"><span>Socials</span></div>
+    <div class="socials">
+      <a href="https://wa.me/254714590380" target="_blank" rel="noopener noreferrer"
+         class="soc-card wa" aria-label="WhatsApp">
+        <div class="soc-icon"><i class="fab fa-whatsapp"></i></div>
+        <span class="soc-name">WhatsApp</span>
+      </a>
+      <a href="https://instagram.com/Clin_memes" target="_blank" rel="noopener noreferrer"
+         class="soc-card ig" aria-label="Instagram">
+        <div class="soc-icon"><i class="fab fa-instagram"></i></div>
+        <span class="soc-name">Instagram</span>
+      </a>
+      <a href="https://www.facebook.com/share/14oBaSfgqJZ/" target="_blank" rel="noopener noreferrer"
+         class="soc-card fb social-wide" aria-label="Facebook Page" style="flex-direction:row;justify-content:flex-start;gap:14px;padding:16px 20px;min-height:auto;">
+        <div class="soc-icon"><i class="fab fa-facebook-f"></i></div>
+        <div style="position:relative;z-index:1;">
+          <div class="soc-name">Facebook Page</div>
+          <div style="font-size:12px;color:var(--txt-2);margin-top:2px;">Follow for updates &amp; content</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ───────────────────────────────── -->
+  <section class="section">
+    <div class="sec-head"><span>Contact</span></div>
+    <div class="contacts">
+      <a href="tel:+254714590380" class="con-card" aria-label="Call Clinton">
+        <div class="con-ico phone"><i class="fas fa-phone"></i></div>
+        <div class="con-body">
+          <div class="con-label">Phone</div>
+          <div class="con-val" id="contactPhone">+254 714 590 380</div>
+        </div>
+        <i class="fas fa-chevron-right con-arr"></i>
+      </a>
+      <a href="mailto:clintmogere@gmail.com" class="con-card" aria-label="Email Clinton" id="emailCard">
+        <div class="con-ico email"><i class="fas fa-envelope"></i></div>
+        <div class="con-body">
+          <div class="con-label">Email</div>
+          <div class="con-val" id="contactEmail">clintmogere@gmail.com</div>
+        </div>
+        <i class="fas fa-chevron-right con-arr"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ────────────────────────────────── -->
+  <footer class="footer">
+    <p>© <span id="yr"></span> Clinton Mogere &nbsp;·&nbsp; <a href="/admin.html">Admin</a></p>
+  </footer>
+
+</main>
+
+<script>
+  /* ─── DEFAULT CHANNELS ─────────────────────────────────────── */
+  const DEFAULTS = [
+    { id:1,  name:"WhatsApp Stickers",         sub:"Stickers & GIFs",           url:"https://whatsapp.com/channel/0029VbD59BvADTOJ0Jdy2S21", on:true },
+    { id:2,  name:"Campus Chronicles ❤️ ✨",   sub:"Campus Life & Stories",     url:"https://whatsapp.com/channel/0029VbAoYs4H5JM6vUKB4m1c", on:true },
+    { id:3,  name:"TikTok Videos",             sub:"Viral TikTok Content",       url:"https://whatsapp.com/channel/0029Vb7VRaL4Y9lnxwMQwq2A", on:true },
+    { id:4,  name:"Toxic Memes ❤️😂",          sub:"Daily Meme Drops",           url:"https://whatsapp.com/channel/0029VbBJ9owCHDyk5Mod8S38", on:true },
+    { id:5,  name:"Daily Wallpapers ❤️",       sub:"HD Wallpapers Every Day",    url:"https://whatsapp.com/channel/0029Vb6GvIAK5cDN9KLgrT0x", on:true },
+    { id:6,  name:"Wallpapers 🎀",             sub:"Aesthetic Wallpaper Collection", url:"https://whatsapp.com/channel/0029Vb7VaFC1Hsq2q15r7Y3v", on:true },
+    { id:7,  name:"Hot Memes ❤️😂",            sub:"Fresh Memes Every Day",      url:"https://whatsapp.com/channel/0029Vb83LTgLNSZx3jvhbB2x", on:true },
+    { id:8,  name:"Girly Polished ❤️❤️",      sub:"Feminine Aesthetic Content", url:"https://whatsapp.com/channel/0029Vb809M9HgZWYaLaWsO0G", on:true },
+    { id:9,  name:"Stickers 💗",               sub:"Cute Sticker Collection",    url:"https://whatsapp.com/channel/0029Vb6roIlLo4hYQzUtMB3H", on:true },
+    { id:10, name:"Sex Education",             sub:"Health & Education 🔞",      url:"https://whatsapp.com/channel/0029VbBHNisCRs1q2GTVJs0H", on:true },
+    { id:11, name:"Nasty Narratives 🥵📖💦",  sub:"Adult Content 18+",          url:"https://whatsapp.com/channel/0029Vb7OiIMCMY0HzuHL423P", on:true },
+  ];
+
+  /* ─── DATA HELPERS ─────────────────────────────────────────── */
+  const get = k => { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } };
+
+  function getChannels() {
+    const saved = get('cm_channels');
+    return Array.isArray(saved) ? saved : DEFAULTS;
+  }
+
+  function getProfile() {
+    const d = {
+      name:'Clinton Mogere', handle:'@Clin_memes',
+      bio:'Content Creator & Meme Lord 🔥 | Campus Chronicles | Entertainment & More',
+      phone:'+254714590380', email:'clintmogere@gmail.com'
+    };
+    return Object.assign(d, get('cm_profile') || {});
+  }
+
+  /* ─── RENDER ───────────────────────────────────────────────── */
+  function renderChannels() {
+    const list = getChannels().filter(c => c.on !== false);
+    const el = document.getElementById('channelsList');
+    if (!list.length) {
+      el.innerHTML = '<div style="text-align:center;padding:24px 0;color:var(--txt-3);font-size:13px;">No channels yet.</div>';
+      return;
+    }
+    el.innerHTML = list.map(c => `
+      <a href="${c.url}" target="_blank" rel="noopener noreferrer" class="ch-card" aria-label="Join ${c.name} on WhatsApp">
+        <div class="ch-icon"><i class="fab fa-whatsapp"></i></div>
+        <div class="ch-info">
+          <div class="ch-name">${esc(c.name)}</div>
+          <div class="ch-sub">${esc(c.sub || 'WhatsApp Channel')}</div>
+        </div>
+        <i class="fas fa-chevron-right ch-arrow"></i>
+      </a>
+    `).join('');
+  }
+
+  function renderProfile() {
+    const p = getProfile();
+    document.getElementById('heroName').textContent    = p.name;
+    document.getElementById('heroHandle').textContent  = p.handle;
+    document.getElementById('heroBio').textContent     = p.bio;
+    document.getElementById('contactPhone').textContent = fmt(p.phone);
+    document.getElementById('contactEmail').textContent = p.email;
+    document.querySelector('a[href^="tel:"]').href = 'tel:' + p.phone.replace(/\s/g,'');
+    document.getElementById('emailCard').href = 'mailto:' + p.email;
+  }
+
+  function esc(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function fmt(n) {
+    n = n.replace(/\D/g,'');
+    if (n.startsWith('254')) n = '+' + n.slice(0,3) + ' ' + n.slice(3,6) + ' ' + n.slice(6,9) + ' ' + n.slice(9);
+    return n;
+  }
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  renderProfile();
+  renderChannels();
+</script>
+</body>
+</html>
