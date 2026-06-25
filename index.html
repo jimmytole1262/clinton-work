@@ -110,19 +110,10 @@
       position: absolute;
       inset: -3px;
       border-radius: 50%;
-      background: conic-gradient(var(--green), var(--purple), var(--pink), var(--green));
+      background: var(--green);
       animation: spin 5s linear infinite;
     }
-    .avatar-wrap::after {
-      content: '';
-      position: absolute;
-      inset: -5px;
-      border-radius: 50%;
-      background: conic-gradient(var(--green), var(--purple), var(--pink), var(--green));
-      filter: blur(14px);
-      opacity: .55;
-      animation: spin 5s linear infinite;
-    }
+    .avatar-wrap::after { display: none; }
     .avatar {
       position: relative;
       width: 100px;
@@ -555,7 +546,7 @@
 
   function getProfile() {
     const d = {
-      name:'Clinton Mogere', handle:'@Clin_memes',
+      name:'Joshclin', handle:'@Clin_memes',
       bio:'Content Creator & Meme Lord 🔥 | Campus Chronicles | Entertainment & More',
       phone:'+254714590380', email:'clinjoey@gmail.com'
     };
