@@ -5,11 +5,14 @@ build/
 .env
 .env.local
 .env.*.local
+.env.example
+.env.local.example
+.env.production
+.env.production.local
 *.log
 .DS_Store
 .idea/
 .vscode/
 *.swp
 *.swo
-.env.production.local
 .vercel
