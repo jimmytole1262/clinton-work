@@ -175,7 +175,6 @@
       border-bottom: 1px solid var(--border);
       background: var(--panel);
       overflow-x: auto;
-      scrollbar-width: none;
     }
     .tab-nav::-webkit-scrollbar { display: none; }
     .tab-btn {
@@ -492,6 +491,11 @@
     }
     .empty i { font-size: 32px; margin-bottom: 10px; display: block; opacity: .4; }
 
+    .danger-title { font-size: 14px; margin-bottom: 14px; }
+    .danger-desc  { font-size: 13px; color: var(--txt-2); margin-bottom: 16px; }
+    .btn-danger   { border-color: var(--red); color: var(--red); }
+    .modal-save-wide { flex: 1.5; justify-content: center; }
+
     @keyframes rise { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
     @keyframes pop  { from { opacity:0; transform:scale(.94); } to { opacity:1; transform:scale(1); } }
 
@@ -610,9 +614,9 @@
       </div>
     </div>
     <div class="form-card">
-      <div class="sec-title" style="font-size:14px;margin-bottom:14px;"><span>Danger Zone</span></div>
-      <p style="font-size:13px;color:var(--txt-2);margin-bottom:16px;">Reset all channels to the default list. This cannot be undone.</p>
-      <button type="button" class="btn-cancel" id="resetBtn" style="border-color:var(--red);color:var(--red);"><i class="fas fa-rotate-left"></i> Reset to Defaults</button>
+      <div class="sec-title danger-title"><span>Danger Zone</span></div>
+      <p class="danger-desc">Reset all channels to the default list. This cannot be undone.</p>
+      <button type="button" class="btn-cancel btn-danger" id="resetBtn"><i class="fas fa-rotate-left"></i> Reset to Defaults</button>
     </div>
   </div>
 
@@ -641,7 +645,7 @@
       </div>
       <div class="modal-actions">
         <button type="button" class="btn-cancel" id="modalCancel">Cancel</button>
-        <button type="button" class="btn-save" id="modalSave" style="flex:1.5;justify-content:center;"><i class="fas fa-check"></i> Save Channel</button>
+        <button type="button" class="btn-save modal-save-wide" id="modalSave"><i class="fas fa-check"></i> Save Channel</button>
       </div>
     </div>
   </div>
